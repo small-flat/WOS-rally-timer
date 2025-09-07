@@ -1,0 +1,212 @@
+/* カスタムテーマクラス */
+.theme-default {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+}
+.theme-okura {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+}
+
+/* テーマ別スタイル - デフォルト（淡い青系） */
+.theme-default .theme-default\:bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+.theme-default .theme-default\:from-wos-bg-start {
+  --tw-gradient-from: #f8fafc;
+  --tw-gradient-to: rgb(248 250 252 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.theme-default .theme-default\:via-wos-bg-mid {
+  --tw-gradient-to: rgb(226 232 240 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), #e2e8f0, var(--tw-gradient-to);
+}
+.theme-default .theme-default\:to-wos-bg-end {
+  --tw-gradient-to: #cbd5e1;
+}
+.theme-default .theme-default\:bg-slate-800\/90 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+.theme-default .theme-default\:bg-slate-700\/50 {
+  background-color: rgb(239 246 255 / 0.8);
+}
+.theme-default .theme-default\:bg-slate-600 {
+  background-color: rgb(255 255 255);
+}
+.theme-default .theme-default\:bg-slate-700 {
+  background-color: rgb(255 255 255);
+}
+.theme-default .theme-default\:border-slate-700 {
+  border-color: rgb(191 219 254);
+}
+.theme-default .theme-default\:border-slate-600 {
+  border-color: rgb(147 197 253);
+}
+.theme-default .theme-default\:text-cyan-400 {
+  color: rgb(37 99 235);
+}
+.theme-default .theme-default\:text-cyan-300 {
+  color: rgb(59 130 246);
+}
+.theme-default .theme-default\:text-cyan-200 {
+  color: rgb(96 165 250);
+}
+.theme-default .theme-default\:text-cyan-100 {
+  color: rgb(30 64 175);
+}
+.theme-default .theme-default\:text-white {
+  color: rgb(31 41 55);
+}
+.theme-default .theme-default\:border-cyan-400 {
+  border-color: rgb(59 130 246);
+}
+.theme-default .theme-default\:border-cyan-300 {
+  border-color: rgb(96 165 250);
+}
+.theme-default .theme-default\:focus\:border-cyan-300:focus {
+  border-color: rgb(96 165 250);
+}
+.theme-default .theme-default\:focus\:ring-cyan-500\/30:focus {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+}
+.theme-default .theme-default\:bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.theme-default .theme-default\:from-cyan-500 {
+  --tw-gradient-from: #3b82f6;
+  --tw-gradient-to: rgb(59 130 246 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.theme-default .theme-default\:to-blue-600 {
+  --tw-gradient-to: #3b82f6;
+}
+.theme-default .theme-default\:hover\:shadow-cyan-500\/60:hover {
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.6),
+    0 4px 6px -2px rgba(59, 130, 246, 0.4);
+}
+.theme-default .theme-default\:shadow-cyan-500\/20 {
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2),
+    0 4px 6px -2px rgba(59, 130, 246, 0.1);
+}
+.theme-default .theme-default\:drop-shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+/* お蔵テーマ（ピンク系） */
+.theme-okura .theme-okura\:bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+.theme-okura .theme-okura\:from-okura-bg-start {
+  --tw-gradient-from: #ff9a9e;
+  --tw-gradient-to: rgb(255 154 158 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.theme-okura .theme-okura\:to-okura-bg-end {
+  --tw-gradient-to: #fecfef;
+}
+.theme-okura .theme-okura\:bg-white\/95 {
+  background-color: rgb(255 255 255 / 0.95);
+}
+.theme-okura .theme-okura\:bg-white {
+  background-color: rgb(255 255 255);
+}
+.theme-okura .theme-okura\:border-2 {
+  border-width: 2px;
+}
+.theme-okura .theme-okura\:border-okura-light-pink {
+  border-color: #ffb3d1;
+}
+.theme-okura .theme-okura\:text-okura-pink {
+  color: #e91e63;
+}
+.theme-okura .theme-okura\:text-gray-800 {
+  color: rgb(31 41 55);
+}
+.theme-okura .theme-okura\:border-okura-light-pink {
+  border-color: #ffb3d1;
+}
+.theme-okura .theme-okura\:focus\:border-okura-pink:focus {
+  border-color: #e91e63;
+}
+.theme-okura .theme-okura\:focus\:ring-pink-200:focus {
+  box-shadow: 0 0 0 4px rgba(251, 207, 232, 0.5);
+}
+.theme-okura .theme-okura\:bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+.theme-okura .theme-okura\:from-pink-500 {
+  --tw-gradient-from: #ec4899;
+  --tw-gradient-to: rgb(236 72 153 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.theme-okura .theme-okura\:to-pink-600 {
+  --tw-gradient-to: #db2777;
+}
+.theme-okura .theme-okura\:hover\:shadow-pink-500\/60:hover {
+  box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.6),
+    0 4px 6px -2px rgba(236, 72, 153, 0.4);
+}
+.theme-okura .theme-okura\:shadow-pink-200\/20 {
+  box-shadow: 0 10px 15px -3px rgba(251, 207, 232, 0.2),
+    0 4px 6px -2px rgba(251, 207, 232, 0.1);
+}
+.theme-okura .theme-okura\:drop-shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+/* スマホサイズの時だけ表示されるbrタグ */
+@media (max-width: 768px) {
+  .br-mobile {
+    display: block;
+  }
+}
+
+/* デスクトップサイズでは非表示 */
+@media (min-width: 769px) {
+  .br-mobile {
+    display: none;
+  }
+}
+
+/* スマホサイズでのinputタグの幅調整 */
+@media (max-width: 768px) {
+  input[type="time"]:not(.width-time),
+  input[type="number"]:not(.width-time):not([id="playerCount"]),
+  button[type="button"] {
+    width: -webkit-fill-available;
+  }
+}
+
+/* プレイヤー数入力フィールドの幅調整 */
+/* #playerCount {
+  width: 100px;
+} */
+
+.width-time {
+  width: 70px;
+}
+
+/* 移動時間の表示切り替え */
+.mobile-time {
+  display: none;
+}
+
+.desktop-time {
+  display: inline;
+}
+
+/* スマホサイズでは分:秒形式、PCでは分秒形式 */
+@media (max-width: 768px) {
+  .mobile-time {
+    display: inline;
+  }
+  
+  .desktop-time {
+    display: none;
+  }
+}
+
+/* フラッシュメッセージの表示制御 */
+#flashMessage.show {
+  opacity: 1 !important;
+}

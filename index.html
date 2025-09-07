@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WOS 集結時刻計算ツール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'noto': ['Noto Sans JP', 'Roboto', 'sans-serif'],
+              'mono': ['Roboto Mono', 'Noto Sans JP', 'Courier New', 'monospace']
+            },
+            colors: {
+              // お蔵テーマ（ピンク系）
+              'okura-pink': '#e91e63',
+              'okura-light-pink': '#ffb3d1',
+              'okura-bg-start': '#ff9a9e',
+              'okura-bg-end': '#fecfef',
+              // White Out Survival風青系テーマ（淡い色に変更）
+              'wos-blue': '#3b82f6',        // メインブルー（淡く）
+              'wos-blue-light': '#60a5fa',  // ライトブルー（淡く）
+              'wos-blue-dark': '#1e40af',   // ダークブルー（淡く）
+              'wos-cyan': '#22d3ee',        // シアン（淡く）
+              'wos-cyan-light': '#67e8f9',  // ライトシアン
+              'wos-slate': '#64748b',       // スレート（淡く）
+              'wos-slate-light': '#94a3b8', // ライトスレート
+              'wos-bg-start': '#1e293b',    // 背景開始（淡く）
+              'wos-bg-mid': '#334155',      // 背景中間（淡く）
+              'wos-bg-end': '#475569'       // 背景終了（淡く）
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="theme-default font-noto min-h-screen" id="body">
+
+    <!-- White Out Survival風の背景 -->
+    <div class="theme-default:bg-gradient-to-br theme-default:from-wos-bg-start theme-default:via-wos-bg-mid theme-default:to-wos-bg-end theme-okura:bg-gradient-to-br theme-okura:from-okura-bg-start theme-okura:to-okura-bg-end min-h-screen p-4">
+      <div class="max-w-4xl mx-auto theme-default:bg-slate-800/90 theme-okura:bg-white/95 rounded-3xl p-8 shadow-2xl backdrop-blur-sm theme-default:border theme-default:border-slate-700">
+        <h1 class="text-4xl font-bold text-center mb-8 theme-default:text-cyan-400 theme-default:drop-shadow-lg theme-okura:text-okura-pink theme-okura:drop-shadow-lg tracking-tight">
+          WOS 集結時刻計算ツール
+        </h1>
+
+        <div class="theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-6 mb-6 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20">
+          <div class="flex flex-wrap items-center gap-4 mb-4">
+            <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-lg min-w-[120px]">現場集結時刻:</label>
+            <input type="time" id="rallyTime" step="1" required 
+                   class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200" />
+          </div>
+          <div class="flex flex-wrap items-center gap-4">
+            <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-lg min-w-[100px]">プレイヤー数:</label>
+            <input type="number" id="playerCount" min="1" max="20" value="2" 
+                   class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200" />
+            <button onclick="generatePlayers()" type="button"
+                    class="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg font-noto tracking-wide theme-default:bg-gradient-to-r theme-default:from-cyan-500 theme-default:to-blue-600 theme-default:hover:shadow-cyan-500/60 theme-okura:bg-gradient-to-r theme-okura:from-pink-500 theme-okura:to-pink-600 theme-okura:hover:shadow-pink-500/60">
+              生成
+            </button>
+          </div>
+        </div>
+
+        <form id="playersForm"></form>
+        
+        <div class="text-center my-8">
+          <button onclick="calculate()" 
+                  class="px-8 py-4 text-xl font-semibold text-white rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg font-noto tracking-wide theme-default:bg-gradient-to-r theme-default:from-cyan-500 theme-default:to-blue-600 theme-default:hover:shadow-cyan-500/60 theme-okura:bg-gradient-to-r theme-okura:from-pink-500 theme-okura:to-pink-600 theme-okura:hover:shadow-pink-500/60">
+            計算する
+          </button>
+        </div>
+
+        <div id="result"></div>
+        <div class="mt-8 theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-6 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20" id="textResult"></div>
+        
+        <div class="my-6 theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-4 mb-4 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20">
+          <h2 class="text-xl font-bold mb-4 text-center theme-default:text-cyan-300 theme-okura:text-okura-pink">
+            📋 使い方
+          </h2>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-2 rounded-xl theme-default:bg-slate-600/30 theme-okura:bg-pink-50">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold theme-default:text-cyan-200 theme-okura:text-okura-pink theme-default:bg-cyan-500 theme-okura:bg-okura-pink">1</div>
+              <div>
+                <h3 class="font-semibold mb-1 theme-default:text-cyan-200 theme-okura:text-okura-pink">現場集結時刻の設定</h3>
+                <p class="theme-default:text-slate-300 theme-okura:text-gray-700">集結現場に到着したい時刻を入力してください</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3 p-2 rounded-xl theme-default:bg-slate-600/30 theme-okura:bg-pink-50">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold  theme-default:text-cyan-200 theme-okura:text-okura-pink theme-default:bg-cyan-500 theme-okura:bg-okura-pink">2</div>
+              <div>
+                <h3 class="font-semibold mb-1 theme-default:text-cyan-200 theme-okura:text-okura-pink">プレイヤー情報の入力</h3>
+                <p class="theme-default:text-slate-300 theme-okura:text-gray-700">「プレイヤーの名前」と「移動時間の秒」は必須で入力してください</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3 p-2 rounded-xl theme-default:bg-slate-600/30 theme-okura:bg-pink-50">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold  theme-default:text-cyan-200 theme-okura:text-okura-pink theme-default:bg-cyan-500 theme-okura:bg-okura-pink">3</div>
+              <div>
+                <h3 class="font-semibold mb-1 theme-default:text-cyan-200 theme-okura:text-okura-pink">調整時間の設定</h3>
+                <p class="theme-default:text-slate-300 theme-okura:text-gray-700">2撃目を1秒後に調整したい場合などに入力してください</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3 p-2 rounded-xl theme-default:bg-slate-600/30 theme-okura:bg-pink-50">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold  theme-default:text-cyan-200 theme-okura:text-okura-pink theme-default:bg-cyan-500 theme-okura:bg-okura-pink">4</div>
+              <div>
+                <h3 class="font-semibold mb-1 theme-default:text-cyan-200 theme-okura:text-okura-pink">計算実行</h3>
+                <p class="theme-default:text-slate-300 theme-okura:text-gray-700">「計算する」ボタン押下後に各自の出発時刻が算出されます</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3 p-2 rounded-xl theme-default:bg-slate-600/30 theme-okura:bg-pink-50">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold  theme-default:text-cyan-200 theme-okura:text-okura-pink theme-default:bg-cyan-500 theme-okura:bg-okura-pink">5</div>
+              <div>
+                <h3 class="font-semibold mb-1 theme-default:text-cyan-200 theme-okura:text-okura-pink">結果のコピー</h3>
+                <p class="theme-default:text-slate-300 theme-okura:text-gray-700">「同盟チャットコピペ用」をタップしてコピーし、チャットへペーストしてください</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- フラッシュメッセージ -->
+        <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-8 py-4 rounded-full font-semibold text-white text-lg shadow-lg z-50 opacity-0 transition-opacity duration-300 pointer-events-none font-noto tracking-wide theme-default:bg-gradient-to-r theme-default:from-cyan-500 theme-default:to-blue-600 theme-okura:bg-gradient-to-r theme-okura:from-pink-500 theme-okura:to-pink-600" id="flashMessage">
+          コピーしました
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
