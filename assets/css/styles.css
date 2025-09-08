@@ -238,6 +238,8 @@
 }
 
 /* flatpicker */
-.flatpickr-calendar {
-  width: 65%!important;
+@media (max-width: 768px) {
+  .flatpickr-calendar {
+    width: 65% !important;
+  }
 }
