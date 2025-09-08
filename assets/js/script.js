@@ -198,6 +198,8 @@ window.onload = function () {
       minuteIncrement: 1,
       secondIncrement: 1,
       allowInput: true,
+      // iOS SafariでネイティブUIを無効化してFlatpickrを強制
+      disableMobile: true,
     });
   } else if (rallyTimeInput) {
     // フォールバック（ライブラリ未読込時）
