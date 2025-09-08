@@ -184,7 +184,25 @@ window.onload = function () {
     .toTimeString()
     .split(" ")[0]
     .substring(0, 8); // HH:MM:SS までセット
-  document.getElementById("rallyTime").value = timeString;
+
+  // Flatpickr で時刻（秒まで）ピッカーを初期化
+  const rallyTimeInput = document.getElementById("rallyTime");
+  if (typeof flatpickr !== "undefined" && rallyTimeInput) {
+    flatpickr(rallyTimeInput, {
+      enableTime: true,
+      enableSeconds: true,
+      noCalendar: true,
+      dateFormat: "H:i:S",
+      time_24hr: true,
+      defaultDate: timeString,
+      minuteIncrement: 1,
+      secondIncrement: 1,
+      allowInput: true,
+    });
+  } else if (rallyTimeInput) {
+    // フォールバック（ライブラリ未読込時）
+    rallyTimeInput.value = timeString;
+  }
 
   // 初期状態でプレイヤー数=2で入力欄を生成
   generatePlayers();
