@@ -183,7 +183,7 @@
 } */
 
 .width-time {
-  width: 70px;
+  width: 78px;
 }
 
 /* 移動時間の表示切り替え */
@@ -209,4 +209,30 @@
 /* フラッシュメッセージの表示制御 */
 #flashMessage.show {
   opacity: 1 !important;
+}
+
+/* 時間入力2つを横並び維持 */
+.time-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.time-inline .width-time {
+  width: 75px;
+}
+.time-inline .time-sep {
+  display: inline-block;
+  padding: 0 4px;
+}
+
+/* iPhone 12 mini 想定の狭幅最適化 */
+@media (max-width: 380px) {
+  .time-inline .width-time {
+    width: 67px;
+  }
+  /* Tailwindのユーティリティは上書きせず、別クラスで制御 */
+  .label-narrow {
+    min-width: 60px;
+  }
 }

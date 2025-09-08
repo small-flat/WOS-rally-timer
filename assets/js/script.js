@@ -61,6 +61,28 @@ function createAnimationElements() {
   return { animeContainer, animeImage };
 }
 
+// iOS Safari 判定
+function isIOSSafari() {
+  const ua = window.navigator.userAgent;
+  const isIOS = /iP(hone|od|ad)/.test(ua);
+  const isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua) && !/CriOS\//.test(ua);
+  return isIOS && isSafari;
+}
+
+// iOS で秒まで入力可能にするための time 入力対策
+function ensureRallyTimeSecondsSupport() {
+  const rallyInput = document.getElementById("rallyTime");
+  if (!rallyInput) return;
+  if (isIOSSafari()) {
+    // iOS Safari は type=time で秒を表示できないため text に切り替える
+    rallyInput.setAttribute("type", "text");
+    rallyInput.setAttribute("inputmode", "numeric");
+    rallyInput.setAttribute("placeholder", "HH:MM:SS");
+    rallyInput.setAttribute("pattern", "^\\d{2}:\\d{2}:\\d{2}$");
+    rallyInput.setAttribute("maxlength", "8");
+  }
+}
+
 // アニメーションを実行する関数
 async function playOkuraAnimation() {
   try {
@@ -153,13 +175,15 @@ function applyTheme() {
 window.onload = function () {
   // テーマを適用
   applyTheme();
+  // iOS の time 秒対策
+  ensureRallyTimeSecondsSupport();
 
   const now = new Date();
   const threeMinutesLater = new Date(now.getTime() + 5 * 60 * 1000);
   const timeString = threeMinutesLater
     .toTimeString()
     .split(" ")[0]
-    .substring(0, 5);
+    .substring(0, 8); // HH:MM:SS までセット
   document.getElementById("rallyTime").value = timeString;
 
   // 初期状態でプレイヤー数=2で入力欄を生成
@@ -178,12 +202,15 @@ function generatePlayers() {
         <input type="text" id="name${i}" placeholder="Player${i}" 
                class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 flex-1 min-w-[150px]">
       </div>
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-base min-w-[60px]">移動<br class="br-mobile">時間:</label>
-        <input type="number" id="min${i}" min="0" max="59" placeholder="分"
-               class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-20 text-center width-time">：
-        <input type="number" id="sec${i}" min="0" max="59" placeholder="秒"
-               class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-20 text-center width-time">
+      <div class="flex flex-nowrap items-center gap-3 mb-3 whitespace-nowrap">
+        <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-base min-w-[60px] label-narrow whitespace-nowrap">移動<br class="br-mobile">時間:</label>
+        <span class="time-inline">
+          <input type="number" id="min${i}" min="0" max="59" placeholder="分"
+                 class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 text-center width-time">
+          <span class="time-sep">：</span>
+          <input type="number" id="sec${i}" min="0" max="59" placeholder="秒"
+                 class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 text-center width-time">
+        </span>
       </div>
       <div class="flex flex-wrap items-center gap-3">
         <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-base min-w-[60px]">調整:</label>
