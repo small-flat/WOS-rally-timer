@@ -22,11 +22,11 @@ function loadGSAP() {
 
 // アニメーション画像のURL配列
 const animeImageUrls = [
-  'https://media.discordapp.net/attachments/1375384755700498454/1410535400967245856/IMG_7353.jpg?ex=68bde536&is=68bc93b6&hm=dd0c544ff136f961770393573d995fc572a191e7e61a97f3d7f073de3a3324cc&=&format=webp&width=614&height=922',
-  'https://media.discordapp.net/attachments/1375384755700498454/1410531103474978886/43F9D003-6068-4631-A885-A3C12C7D574F.png?ex=68bde135&is=68bc8fb5&hm=3a3a615620664e71d3324dc46336cbbe150a4cb898b39dec14f7b8578a09d405&=&format=webp&quality=lossless&width=233&height=350',
-  'https://media.discordapp.net/attachments/1375384755700498454/1410532155918123069/45BE85EE-A2BA-4549-84B2-7E800B50D78C.png?ex=68bde230&is=68bc90b0&hm=23f83e83065bddea0694ecef8aa53f8fe88838ecd1d370b606480360f244666a&=&format=webp&quality=lossless&width=614&height=922',
-  'https://media.discordapp.net/attachments/1375384755700498454/1410534035125436436/ADFFDD7F-BCA2-4A24-9AD9-6765E8155736.png?ex=68bde3f0&is=68bc9270&hm=d688bd90b07ebfe889f6bfce0ef2e22f7db794d1c101005c7d4dff3a43b231e7&=&format=webp&quality=lossless&width=545&height=818',
-  'https://media.discordapp.net/attachments/1375384755700498454/1410534034731302973/6B173FCE-4297-477A-AF87-EAAA87968244.png?ex=68bde3f0&is=68bc9270&hm=641f8ffa2a5e3ea4aeed518e554ad5eb0048677f32058eb2b5f66cc98d8f6a61&=&format=webp&quality=lossless&width=545&height=818'
+  './assets/images/member001.png',
+  './assets/images/member002.png',
+  './assets/images/member003.png',
+  './assets/images/member004.png',
+  './assets/images/member005.jpg' 
 ];
 
 // ランダムな画像URLを取得する関数
