@@ -22,10 +22,10 @@ function loadGSAP() {
 
 // アニメーション画像のURL配列
 const animeImageUrls = [
-  './assets/images/member001.png',
-  './assets/images/member002.png',
-  './assets/images/member003.png',
-  './assets/images/member004.png',
+  './assets/images/member001.jpg',
+  './assets/images/member002.jpg',
+  './assets/images/member003.jpg',
+  './assets/images/member004.jpg',
   './assets/images/member005.jpg' 
 ];
 
