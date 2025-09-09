@@ -252,7 +252,7 @@ function generatePlayers() {
 function calculate() {
   const rallyTimeStr = document.getElementById("rallyTime").value;
   if (!rallyTimeStr) {
-    alert("集結開始時刻を入力してください");
+    alert("現場集結時刻を入力してください");
     return;
   }
   const rallyTime = new Date(`1970-01-01T${rallyTimeStr}`);
@@ -268,7 +268,7 @@ function calculate() {
         </tr>
       </thead>
       <tbody>`;
-  let textOutput = `集結開始: ${rallyTimeStr}\n`;
+  let textOutput = `現場集結時刻: ${rallyTimeStr}\n`;
 
   const count = Number(document.getElementById("playerCount").value);
   let hasValidPlayers = false;
