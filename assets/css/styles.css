@@ -243,3 +243,28 @@
     width: 65% !important;
   }
 }
+
+/* iOS Safari select要素の高さ統一 */
+select {
+  height: 48px !important;
+  min-height: 48px !important;
+  line-height: 1.5 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* iOS Safari select要素の矢印アイコン */
+select::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor;
+  pointer-events: none;
+}
