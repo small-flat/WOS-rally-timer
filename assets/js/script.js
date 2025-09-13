@@ -235,7 +235,7 @@ function generatePlayers() {
       <div class="flex flex-wrap items-center gap-3">
         <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-base min-w-[60px]">調整:</label>
         <select id="adjust${i}" 
-                class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-24">
+                class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-40">
           <option value="0">±0秒</option>
           <option value="-5">-5秒</option>
           <option value="-2">-2秒</option>
@@ -243,6 +243,8 @@ function generatePlayers() {
           <option value="1">+1秒</option>
           <option value="2">+2秒</option>
           <option value="5">+5秒</option>
+          <option value="60">+60秒(1分)</option>
+          <option value="300">+300秒(5分)</option>
         </select>
       </div>
     </div>`;
@@ -268,7 +270,17 @@ function calculate() {
         </tr>
       </thead>
       <tbody>`;
-  let textOutput = `現場集結時刻: ${rallyTimeStr}\n`;
+  let textOutput = `現場集結: ${rallyTimeStr}\n`;
+  
+  // JSTで計算した結果をUTC時刻に変換するための関数
+  function convertJSTToUTC(jstTimeString) {
+    // JST時刻をDateオブジェクトとして作成（JSTとして解釈）
+    const jstDate = new Date(`1970-01-01T${jstTimeString}+09:00`);
+    // UTC時刻に変換
+    return jstDate.toISOString().substr(11, 8);
+  }
+  
+  let utcTextOutput = `現場集結(UTC): ${convertJSTToUTC(rallyTimeStr)}\n`;
 
   const count = Number(document.getElementById("playerCount").value);
   let hasValidPlayers = false;
@@ -286,6 +298,9 @@ function calculate() {
       const travelSec = min * 60 + sec + adjust;
       const depart = new Date(rallyTime.getTime() - travelSec * 1000);
       const departStr = depart.toTimeString().split(" ")[0];
+      
+      // JSTで計算した出発時刻をUTC時刻に変換
+      const departUTCStr = convertJSTToUTC(departStr);
 
       table += `<tr class="border-b theme-default:border-slate-600 theme-okura:border-okura-light-pink hover:theme-default:bg-slate-600/50 hover:theme-okura:bg-pink-50">
         <td class="px-4 py-3 text-center font-noto theme-default:text-cyan-100 theme-okura:text-gray-800" data-label="名前">${name}</td>
@@ -297,6 +312,7 @@ function calculate() {
       </tr>`;
 
       textOutput += `${name}<br> 出発 ${departStr}\n`;
+      utcTextOutput += `${name}<br> 出発 ${departUTCStr}\n`;
     }
   }
 
@@ -311,8 +327,15 @@ function calculate() {
   document.getElementById("result").innerHTML = table;
   document.getElementById(
     "textResult"
-  ).innerHTML = `<h3 class="font-semibold text-center text-lg mb-4 font-noto theme-default:text-cyan-300 theme-okura:text-okura-pink">同盟チャットコピペ用</h3>
+  ).innerHTML = `<h3 class="font-semibold text-center text-lg mb-4 font-noto theme-default:text-cyan-300 theme-okura:text-okura-pink">チャットコピペ用</h3>
      <pre id='copyText' class="border-2 rounded-xl p-4 font-mono text-sm font-normal cursor-pointer select-none transition-all duration-300 hover:scale-105 theme-default:border-cyan-400 theme-default:bg-slate-600 theme-default:text-cyan-100 theme-default:hover:bg-slate-500 theme-default:hover:border-cyan-300 theme-okura:border-okura-light-pink theme-okura:bg-pink-50 theme-okura:text-gray-800 theme-okura:hover:bg-pink-100 theme-okura:hover:border-okura-pink">${textOutput}</pre>
+     <p class="text-sm theme-default:text-cyan-200 theme-okura:text-gray-600 mt-2 text-center">タップするとコピーできるよ</p>`;
+
+  // UTC時刻版の結果表示
+  document.getElementById(
+    "utcResult"
+  ).innerHTML = `<h3 class="font-semibold text-center text-lg mb-4 font-noto theme-default:text-cyan-300 theme-okura:text-okura-pink">チャットコピペ用(UTC)</h3>
+     <pre id='copyUtcText' class="border-2 rounded-xl p-4 font-mono text-sm font-normal cursor-pointer select-none transition-all duration-300 hover:scale-105 theme-default:border-cyan-400 theme-default:bg-slate-600 theme-default:text-cyan-100 theme-default:hover:bg-slate-500 theme-default:hover:border-cyan-300 theme-okura:border-okura-light-pink theme-okura:bg-pink-50 theme-okura:text-gray-800 theme-okura:hover:bg-pink-100 theme-okura:hover:border-okura-pink">${utcTextOutput}</pre>
      <p class="text-sm theme-default:text-cyan-200 theme-okura:text-gray-600 mt-2 text-center">タップするとコピーできるよ</p>`;
 
   // 結果テーブルの先頭までスクロール
@@ -355,6 +378,43 @@ function calculate() {
       } else {
         // フォールバック: 古いブラウザ対応
         fallbackCopyTextToClipboard(textToCopy, flashMessage);
+      }
+    });
+  }
+
+  // UTC時刻版のコピー機能を追加
+  const copyUtcElement = document.getElementById("copyUtcText");
+  if (copyUtcElement) {
+    copyUtcElement.addEventListener("click", function () {
+      // HTMLタグを除去してテキストのみを取得
+      const utcTextToCopy = utcTextOutput.replace(/<br>/g, "\n");
+
+      // フラッシュメッセージ要素を取得
+      const flashMessage = document.getElementById("flashMessage");
+      
+      // クリップボードにコピー
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(utcTextToCopy)
+          .then(function () {
+            // フラッシュメッセージを表示
+            if (flashMessage) {
+              flashMessage.classList.add("show");
+              
+              // 2秒後に非表示
+              setTimeout(function () {
+                flashMessage.classList.remove("show");
+              }, 2000);
+            }
+          })
+          .catch(function (err) {
+            console.error("コピーに失敗しました: ", err);
+            // フォールバック: 古いブラウザ対応
+            fallbackCopyTextToClipboard(utcTextToCopy, flashMessage);
+          });
+      } else {
+        // フォールバック: 古いブラウザ対応
+        fallbackCopyTextToClipboard(utcTextToCopy, flashMessage);
       }
     });
   }

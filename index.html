@@ -26,9 +26,8 @@
 
         <div class="theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-6 mb-6 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20">
           <div class="flex flex-wrap items-center gap-4 mb-4">
-            <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-lg min-w-[120px]">現場集結時刻:</label>
-            <input type="text" id="rallyTime" placeholder="HH:MM:SS" required 
-//                   class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200" />
+            <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-lg min-w-[120px]">現場集結:</label>
+            <input type="text" id="rallyTime" placeholder="HH:MM:SS" required class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200" />
           </div>
           <div class="flex flex-wrap items-center gap-4">
             <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-lg min-w-[100px]">プレイヤー数:</label>
@@ -52,6 +51,7 @@
 
         <div id="result"></div>
         <div class="mt-8 theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-6 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20" id="textResult"></div>
+        <div class="mt-8 theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-6 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20" id="utcResult"></div>
         
         <div class="my-6 theme-default:bg-slate-700/50 theme-okura:bg-white rounded-3xl p-4 mb-4 shadow-xl theme-default:border theme-default:border-slate-600 theme-okura:border-2 theme-okura:border-okura-light-pink theme-default:shadow-cyan-500/20 theme-okura:shadow-pink-200/20">
           <h2 class="text-xl font-bold mb-4 text-center theme-default:text-cyan-300 theme-okura:text-okura-pink">
