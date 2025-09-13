@@ -280,7 +280,7 @@ function calculate() {
     return jstDate.toISOString().substr(11, 8);
   }
   
-  let utcTextOutput = `現場集結(UTC): ${convertJSTToUTC(rallyTimeStr)}\n`;
+  let utcTextOutput = `Arrival(UTC): ${convertJSTToUTC(rallyTimeStr)}\n`;
 
   const count = Number(document.getElementById("playerCount").value);
   let hasValidPlayers = false;
@@ -311,8 +311,8 @@ function calculate() {
         <td class="px-4 py-3 text-center font-noto theme-default:text-cyan-100 theme-okura:text-gray-800" data-label="出発時刻">${departStr}</td>
       </tr>`;
 
-      textOutput += `${name}<br> 出発 ${departStr}\n`;
-      utcTextOutput += `${name}<br> 出発 ${departUTCStr}\n`;
+       textOutput += `${name}<br> 出発 ${departStr}\n`;
+       utcTextOutput += `${name}<br> start ${departUTCStr}\n`;
     }
   }
 
