@@ -235,7 +235,7 @@ function generatePlayers() {
       <div class="flex flex-wrap items-center gap-3">
         <label class="font-semibold theme-default:text-cyan-300 theme-okura:text-okura-pink text-base min-w-[60px]">調整:</label>
         <select id="adjust${i}" 
-                class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-40">
+                class="px-4 py-3 rounded-xl border-2 font-noto text-base transition-all duration-300 focus:outline-none focus:ring-4 theme-default:bg-slate-600 theme-default:border-cyan-400 theme-default:text-white theme-default:focus:border-cyan-300 theme-default:focus:ring-cyan-500/30 theme-okura:bg-white theme-okura:border-okura-light-pink theme-okura:text-gray-800 theme-okura:focus:border-okura-pink theme-okura:focus:ring-pink-200 w-40 h-12">
           <option value="0">±0秒</option>
           <option value="-5">-5秒</option>
           <option value="-2">-2秒</option>
